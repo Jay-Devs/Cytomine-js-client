@@ -84,6 +84,16 @@ export default class Cytomine {
   }
 
   /**
+   * Wait for the server
+   *
+   * @param {number}  [timeout]   The identifier of the active project
+   */
+  async waitToAcceptConnection(timeout=120) {
+    let {data} = await this.api.post(`${this._host}/server/ping.json`, { 'axios-retry': {retries: timeout, retryDelay:1}}, {withCredentials: true});
+    return data;
+  }
+
+  /**
    * Login to Cytomine with the provided credentials
    *
    * @param {string}  username            The username

@@ -10,6 +10,7 @@ export async function wait(ms) {
 
 export async function connect(adminSession=false) {
   let cytomineInstance = new cytomine.Cytomine(config.host, config.basePath);
+  await cytomineInstance.waitToAcceptConnection();
   await cytomineInstance.login(config.username, config.password);
   if(adminSession) {
     await cytomineInstance.openAdminSession();
